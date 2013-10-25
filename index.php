@@ -32,7 +32,7 @@ if (!function_exists('espresso_recurring_dropdown')) {
 	function espresso_recurring_dropdown(){
 		global $events, $org_options, $events_in_session;
 
-		$button_text = 'Select a Date';
+		$button_text = __('Select a Date', 'event_espresso');
 		//Check if Multi Event Registration is installed
 		$multi_reg = false;
 		if (function_exists('event_espresso_multi_reg_init')) {
