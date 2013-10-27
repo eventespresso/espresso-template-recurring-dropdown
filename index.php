@@ -67,14 +67,18 @@ if (!function_exists('espresso_recurring_dropdown')) {
 			$event_meta				= unserialize($event->event_meta);
 			$externalURL 			= $event->externalURL;
 			$registration_url 		= !empty($externalURL) ? $externalURL : espresso_reg_url($event->id);
-			$open_spots 			= apply_filters('filter_hook_espresso_get_num_available_spaces', $event->id);
-
+			if ( ! has_filter( 'filter_hook_espresso_get_num_available_spaces' ) ){
+				$open_spots		= apply_filters('filter_hook_espresso_get_num_available_spaces', $event->id); //Available in 3.1.37
+			}else{
+				$open_spots		= get_number_of_attendees_reg_limit($event->id, 'number_available_spaces');
+			}
 			$recurrence_id			= $event->recurrence_id;
 			$allow_overflow			= $event->allow_overflow;
 			$overflow_event_id		= $event->overflow_event_id;
 			$externalURL 			= $event->externalURL;
 			$registration_url 		= !empty($externalURL) ? $externalURL : espresso_reg_url($event->id);
-
+			$event_status 			= event_espresso_get_status($event->id);
+			
 			/* group recurring events */
 			$is_new_event_type = $recurrence_id == 0 || !isset($recurrence_ids_array[$recurrence_id]);
 
@@ -130,7 +134,8 @@ if (!function_exists('espresso_recurring_dropdown')) {
 						<?php
 							foreach ($events_group as $e){
 
-								$num_attendees = apply_filters('filter_hook_espresso_get_num_attendees', $e['event_id']);
+								//$num_attendees = apply_filters('filter_hook_espresso_get_num_attendees', $e['event_id']);
+								$num_attendees = get_number_of_attendees_reg_limit($e['event_id'], 'number_available_spaces');
 								echo '<li>';
 
 								if ($num_attendees >= $e['reg_limit']){
@@ -165,7 +170,8 @@ if (!function_exists('espresso_recurring_dropdown')) {
 					</div></td>
 		<?php
 				}else{
-					$num_attendees = apply_filters('filter_hook_espresso_get_num_attendees', $first_event_instance['event_id']);
+					//$num_attendees = apply_filters('filter_hook_espresso_get_num_attendees', $first_event_instance['event_id']);
+					$num_attendees = get_number_of_attendees_reg_limit($e['event_id'], 'number_available_spaces');
 					if ($num_attendees >= $events_group[0]['reg_limit']){ ?>
 						<td><p><span class="error"><?php _e('Sold Out', 'event_espresso'); ?></span>
 						<?php
