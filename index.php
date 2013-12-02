@@ -135,7 +135,8 @@ if (!function_exists('espresso_recurring_dropdown')) {
 							foreach ($events_group as $e){
 
 								//$num_attendees = apply_filters('filter_hook_espresso_get_num_attendees', $e['event_id']);
-								$num_attendees = get_number_of_attendees_reg_limit($e['event_id'], 'number_available_spaces');
+								$num_attendees = get_number_of_attendees_reg_limit($e['event_id'], 'num_attendees');
+								
 								echo '<li>';
 
 								if ($num_attendees >= $e['reg_limit']){
@@ -156,7 +157,7 @@ if (!function_exists('espresso_recurring_dropdown')) {
 										echo '[ <a href="'.espresso_reg_url($event->overflow_event_id).'">'.__('Join Waiting List').'</a> ]';
 									}
 								}
-								elseif (event_espresso_get_status($first_event_instance['event_id']) == 'NOT_ACTIVE'){
+								elseif (event_espresso_get_status($e['event_id']) == 'NOT_ACTIVE'){
 									echo ' '.__('Closed', 'event_espresso').'</span>';
 
 								}else{
@@ -171,7 +172,7 @@ if (!function_exists('espresso_recurring_dropdown')) {
 		<?php
 				}else{
 					//$num_attendees = apply_filters('filter_hook_espresso_get_num_attendees', $first_event_instance['event_id']);
-					$num_attendees = get_number_of_attendees_reg_limit($e['event_id'], 'number_available_spaces');
+					$num_attendees = get_number_of_attendees_reg_limit($first_event_instance['event_id'], 'num_attendees');
 					if ($num_attendees >= $events_group[0]['reg_limit']){ ?>
 						<td><p><span class="error"><?php _e('Sold Out', 'event_espresso'); ?></span>
 						<?php
