@@ -154,7 +154,8 @@ if (!function_exists('espresso_recurring_dropdown')) {
 								if ($num_attendees >= $e['reg_limit']){
 									echo ' '.__('Sold Out', 'event_espresso').'</span>';
 									if ($e['allow_overflow'] == 'Y'){
-										echo '[ <a href="'.espresso_reg_url($event->overflow_event_id).'">'.__('Join Waiting List').'</a> ]';
+										$overflow_url = espresso_reg_url($e['overflow_event_id']);                                      
+										echo '[ <a class="waitlist" href="'.$overflow_url.'">'.__('Join Waiting List').'</a> ]';
 									}
 								}
 								elseif (event_espresso_get_status($e['event_id']) == 'NOT_ACTIVE'){
