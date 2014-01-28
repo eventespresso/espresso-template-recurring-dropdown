@@ -69,18 +69,15 @@
 
 .dropdown-menu LI > A,
 .dropdown-menu LABEL {
-	display: block;
 	color: #555;
 	text-decoration: none;
-	line-height: 18px;
-	padding: 3px 15px;
-	white-space: nowrap;
+	line-height: 1em;
+	padding: 3px 0px 3px 15px;
 }
 
 .dropdown-menu LI > A:hover,
 .dropdown-menu LABEL:hover {
-	background-color: #08C;
-	color: #FFF;
+	color: #08C;
 	cursor: pointer;
 }
 .dropdown-menu .ee_add_item_to_cart {
