@@ -164,6 +164,23 @@ if (!function_exists('espresso_recurring_dropdown')) {
 								}else{
 									echo '</a>';
 								}
+								if($num_attendees < $e['reg_limit']) {
+									$params = array(
+										//REQUIRED, the id of the event that needs to be added to the cart
+										'event_id' => $e['event_id'],
+										//REQUIRED, Anchor of the link, can use text or image
+										//'anchor' => __("Add to Cart", 'event_espresso'),
+										'anchor' => '<img src="' . EVENT_ESPRESSO_PLUGINFULLURL . 'images/cart_add.png" />',
+										//REQUIRED, if not available at this point, use the next line before this array declaration
+										// $event_name = get_event_field('event_name', EVENTS_DETAIL_TABLE, ' WHERE id = ' . $event_id);
+										'event_name' => $e['event_name'],
+										//OPTIONAL, will place this term before the link
+										//'separator' => __(" or ", 'event_espresso')
+									);
+									
+									echo $cart_link = event_espresso_cart_link($params);
+
+								}
 
 								echo '</li>';
 							}
