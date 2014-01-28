@@ -83,6 +83,17 @@
 	color: #FFF;
 	cursor: pointer;
 }
+.dropdown-menu .ee_add_item_to_cart {
+	padding: 0;
+}
+.dropdown-menu .ee_add_item_to_cart img {
+	float: right;
+	height: 1em;
+	vertical-align: text-top;
+}
+.dropdown-menu .waitlist{	
+	padding:0;
+}
 
 .dropdown-menu .undo A { background-image: url(icons/arrow-curve-180-left.png); }
 .dropdown-menu .redo A { background-image: url(icons/arrow-curve.png); }
