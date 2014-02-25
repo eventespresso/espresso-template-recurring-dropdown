@@ -78,7 +78,7 @@ if (!function_exists('espresso_recurring_dropdown')) {
 			$externalURL 			= $event->externalURL;
 			$registration_url 		= !empty($externalURL) ? $externalURL : espresso_reg_url($event->id);
 			$event_status 			= event_espresso_get_status($event->id);
-			
+
 			/* group recurring events */
 			$is_new_event_type = $recurrence_id == 0 || !isset($recurrence_ids_array[$recurrence_id]);
 
@@ -98,6 +98,8 @@ if (!function_exists('espresso_recurring_dropdown')) {
 				'event_desc'		=> $event->event_desc,
 				'start_date'		=> $event->start_date,
 				'end_date'			=> $event->end_date,
+				'reg_start_date'	=> $event->registration_start,
+				'reg_end_date'		=> $event->registration_end,
 				'reg_limit'			=> $event->reg_limit,
 				'registration_url'	=> $registration_url,
 				'recurrence_id'		=> $recurrence_id,
@@ -136,7 +138,7 @@ if (!function_exists('espresso_recurring_dropdown')) {
 
 								//$num_attendees = apply_filters('filter_hook_espresso_get_num_attendees', $e['event_id']);
 								$num_attendees = get_number_of_attendees_reg_limit($e['event_id'], 'num_attendees');
-								
+
 								echo '<li>';
 
 								if ($num_attendees >= $e['reg_limit']){
@@ -151,10 +153,12 @@ if (!function_exists('espresso_recurring_dropdown')) {
 									echo event_date_display($e['start_date'], get_option('date_format'));
 								}
 
+
+//var_dump($e);
 								if ($num_attendees >= $e['reg_limit']){
 									echo ' - '.__('Sold Out', 'event_espresso').'</span>';
 									if ($e['allow_overflow'] == 'Y'){
-										$overflow_url = espresso_reg_url($e['overflow_event_id']);                                      
+										$overflow_url = espresso_reg_url($e['overflow_event_id']);
 										echo '[ <a class="waitlist" href="'.$overflow_url.'">'.__('Join Waiting List').'</a> ]';
 									}
 								}
@@ -177,8 +181,17 @@ if (!function_exists('espresso_recurring_dropdown')) {
 										//OPTIONAL, will place this term before the link
 										//'separator' => __(" or ", 'event_espresso')
 									);
-									
-									echo $cart_link = event_espresso_cart_link($params);
+
+									$check_reg_date = strtotime($e['reg_start_date']);
+									$check_reg_end_date = strtotime($e['reg_end_date']);
+									$check_cur_date = strtotime( date('Y-m-d') );
+
+									if($check_cur_date < $check_reg_date || $check_cur_date > $check_reg_end_date) {
+										echo '<img style="float: right;" src="' . EVENT_ESPRESSO_PLUGINFULLURL . 'images/error.png" />';
+									}
+									else {
+										echo $cart_link = event_espresso_cart_link($params);
+									}
 
 								}
 
@@ -236,8 +249,8 @@ function espresso_template_recurring_dropdown_load_pue_update() {
 	global $org_options, $espresso_check_for_updates;
 	if ( $espresso_check_for_updates == false )
 		return;
-		
-	if (file_exists(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php')) { //include the file 
+
+	if (file_exists(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php')) { //include the file
 		require(EVENT_ESPRESSO_PLUGINFULLPATH . 'class/pue/pue-client.php' );
 		$api_key = $org_options['site_license_key'];
 		$host_server_url = 'http://eventespresso.com';
