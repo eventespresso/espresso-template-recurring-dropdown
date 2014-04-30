@@ -120,7 +120,7 @@ if (!function_exists('espresso_recurring_dropdown')) {
 			$first_event_instance	= $events_group[0];
 
 			?>
-			<tr id="event_data-<?php echo $first_event_instance['event_id']?>" class="event_data subpage_excerpt r <?php echo $css_class; ?> <?php echo $category_identifier; ?> event-data-display event-list-display">
+			<tr id="event_data-<?php echo $first_event_instance['event_id']?>" class="event_data subpage_excerpt r event-data-display event-list-display">
 				<td id="event_title-<?php echo $first_event_instance['event_id']?>" class="event_title"><?php echo stripslashes_deep($first_event_instance['event_name'])?></td>
 				<td id="venue_title-<?php echo $first_event_instance['venue_title']?>" class="venue_title"><?php echo stripslashes_deep($first_event_instance['venue_title'])?></td>
 				<td id="start_time-<?php echo $first_event_instance['start_time']?>" class="start_time"><?php echo stripslashes_deep($first_event_instance['start_time'])?></td>
