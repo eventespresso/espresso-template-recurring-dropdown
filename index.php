@@ -90,8 +90,8 @@ function espresso_template_recurring_dropdown_load_pue_update() {
 		$api_key = $org_options['site_license_key'];
 		$host_server_url = 'http://eventespresso.com';
 		$plugin_slug = array(
-			'premium' => array('p'=> 'espresso-template-recurring-dropdown'),
-			'prerelease' => array('b'=> 'espresso-template-recurring-dropdown-pr')
+			'premium' => array('p'=> 'recurring-events-drop-down'),
+			'prerelease' => array('b'=> 'recurring-events-drop-down-pr')
 			);
 		$options = array(
 			'apikey' => $api_key,
