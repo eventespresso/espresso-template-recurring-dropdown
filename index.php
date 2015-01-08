@@ -3,7 +3,7 @@
   Plugin Name: Event Espresso Template - Recurring Events Table w/ Dropdowns
   Plugin URI: http://www.eventespresso.com
   Description: This template creates a list of events, displayed in a table, with dropdowns selections for recurring events. It can display events by category and/or maximum number of days. [EVENT_CUSTOM_VIEW template_name="recurring-dropdown"]
-  Version: 1.0
+  Version: 1.1.p
   Author: Event Espresso
   Author URI: http://www.eventespresso.com
   Copyright 2013 Event Espresso (email : support@eventespresso.com)
