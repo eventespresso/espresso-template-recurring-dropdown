@@ -30,7 +30,7 @@
 add_action('action_hook_espresso_custom_template_recurring-dropdown','espresso_recurring_dropdown', 10, 1);
 if (!function_exists('espresso_recurring_dropdown')) {
 	function espresso_recurring_dropdown(){
-		global $events, $org_options, $events_in_session;
+		global $events, $org_options, $events_in_session, $ee_attributes;
 
 		$button_text = __('Select a Date', 'event_espresso');
 		//Check if Multi Event Registration is installed
@@ -38,13 +38,21 @@ if (!function_exists('espresso_recurring_dropdown')) {
 		if (function_exists('event_espresso_multi_reg_init')) {
 			$multi_reg = true;
 		}
-
+		//Check if show_mer_icons has been set on the shortcode
+		if(isset($ee_attributes['show_mer_icons'])) {
+			$show_mer_icons = $ee_attributes['show_mer_icons'];
+		} else {
+			$show_mer_icons = false;
+		}
+		//Validate $show_mer_icons to be used as a boolean
+		$show_mer_icons = filter_var($show_mer_icons, FILTER_VALIDATE_BOOLEAN);
+		
 		/* group recurring events */
 		wp_register_script( 'jquery_dropdown', WP_PLUGIN_URL. "/".plugin_basename(dirname(__FILE__)) .'/js/jquery.dropdown.js', array('jquery'), '0.1', TRUE );
 		wp_enqueue_script( 'jquery_dropdown' );
 		wp_register_style( 'espresso_recurring_dropdown_stylesheet', WP_PLUGIN_URL. "/".plugin_basename(dirname(__FILE__)) .'/css/jquery.dropdown.css');
 		wp_enqueue_style( 'espresso_recurring_dropdown_stylesheet' );
-
+		
 		/* group recurring events */
 		$events_type_index = -1;
 		$events_of_same_type = array();

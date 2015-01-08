@@ -118,7 +118,8 @@
 								}else{
 									echo '</a>';
 								}
-								if($num_attendees < $e['reg_limit']) {
+
+								if($num_attendees < $e['reg_limit'] && $multi_reg == true  && $show_mer_icons == true) {
 									$params = array(
 										//REQUIRED, the id of the event that needs to be added to the cart
 										'event_id' => $e['event_id'],
