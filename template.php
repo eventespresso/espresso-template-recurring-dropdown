@@ -42,7 +42,7 @@
 			$event_data = array(
 				'event_id'			=> $event->id,
 				'event_name'		=> stripslashes_deep($event->event_name),
-				'venue_title'		=> $event->venue_name,
+				'venue_title'		=> isset($org_options['use_venue_manager']) && $org_options['use_venue_manager'] == 'Y' ? $event->venue_name : $event->venue_title,
 				'start_time'		=> $event->start_time,
 				'price'				=> $event->event_cost,
 				'event_desc'		=> $event->event_desc,
